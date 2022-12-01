@@ -9,14 +9,14 @@ import { IHttpResponse } from '../common/models/http.model'
 import {
   IMovieAPIResponse,
   IMovieItemAPIResponse,
-  TtypeOfMovies,
-  TtypeOfView,
+  ETypeOfView,
+  ETypeOfMovies,
 } from '../common/models/movie.model'
-import { getMoviesAPI } from './asyncActions/movies'
+import { getMoviesAPI, loadMoreMoviesAPI } from './asyncActions/movies'
 
 export interface IMoviesState {
-  typeOfMovie: TtypeOfMovies
-  typeOfView: TtypeOfView
+  typeOfMovie: ETypeOfMovies
+  typeOfView: ETypeOfView
   textSearch: string
   movies: IMovieItemAPIResponse[]
   page: number
@@ -25,8 +25,8 @@ export interface IMoviesState {
 }
 
 const initialState: IMoviesState = {
-  typeOfMovie: TtypeOfMovies.NOW_PLAYING,
-  typeOfView: TtypeOfView.GRID,
+  typeOfMovie: ETypeOfMovies.NOW_PLAYING,
+  typeOfView: ETypeOfView.GRID,
   textSearch: '',
   movies: [],
   page: 1,
@@ -44,26 +44,36 @@ const moviesReducer = createSlice({
     ) {
       state.movies = [...state.movies, ...action.payload]
     },
-    updateTypeOfView(state: IMoviesState, action: PayloadAction<TtypeOfView>) {
+    updateTypeOfView(state: IMoviesState, action: PayloadAction<ETypeOfView>) {
       state.typeOfView = action.payload
     },
     updateTypeOfMovie(
       state: IMoviesState,
-      action: PayloadAction<TtypeOfMovies>,
+      action: PayloadAction<ETypeOfMovies>,
     ) {
       state.typeOfMovie = action.payload
     },
   },
   extraReducers: (builder: any) => {
-    builder.addCase(
-      getMoviesAPI.fulfilled,
-      (state: IMoviesState, action: PayloadAction<IMovieAPIResponse>) => {
-        state.movies = [...state.movies, ...action.payload.results]
-        state.page = action.payload.page
-        state.total_pages = action.payload.total_pages
-        state.total_results = action.payload.total_results
-      },
-    )
+    builder
+      .addCase(
+        getMoviesAPI.fulfilled,
+        (state: IMoviesState, action: PayloadAction<IMovieAPIResponse>) => {
+          state.movies = action.payload.results
+          state.page = action.payload.page
+          state.total_pages = action.payload.total_pages
+          state.total_results = action.payload.total_results
+        },
+      )
+      .addCase(
+        loadMoreMoviesAPI.fulfilled,
+        (state: IMoviesState, action: PayloadAction<IMovieAPIResponse>) => {
+          state.movies = [...state.movies, ...action.payload.results]
+          state.page = action.payload.page
+          state.total_pages = action.payload.total_pages
+          state.total_results = action.payload.total_results
+        },
+      )
   },
 })
 

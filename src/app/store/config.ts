@@ -6,6 +6,7 @@ import {
 } from '@reduxjs/toolkit'
 import { IAppState } from '.'
 import { IAppConfigResponse } from '../common/models/config'
+import { getConfig } from './asyncActions/movies'
 
 export interface IConfigState {
   requestAPIInProgress: boolean
@@ -45,6 +46,14 @@ const configReducer = createSlice({
       state.appConfig = action.payload
     },
   },
+  extraReducers: (builder: any) => {
+    builder.addCase(
+      getConfig.fulfilled,
+      (state: IConfigState, action: PayloadAction<IAppConfigResponse>) => {
+        state.appConfig = action.payload
+      },
+    )
+  },
 })
 
 const rootState = (state: IAppState) => state.config
@@ -67,6 +76,11 @@ export const getPosterImageSizes = createSelector(
 export const getImageBaseUrl = createSelector(
   rootState,
   (state: IConfigState) => state.appConfig.images.base_url,
+)
+
+export const getRequestAPIInProgress = createSelector(
+  rootState,
+  (state: IConfigState) => state.requestAPIInProgress,
 )
 
 export const { updateRequestAPIInProgress, updateAppConfig } =

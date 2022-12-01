@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { IMovieItemAPIResponse, TtypeOfView } from 'src/app/common/models/movie.model'
+import { IMovieItemAPIResponse, ETypeOfView } from 'src/app/common/models/movie.model'
 import {
   getBackDropImageSize,
   getPosterImageSize,
@@ -39,7 +39,7 @@ export default function Movie(props: IMovieItemAPIResponse) {
     <div
       className={classNames(
         'movie-item',
-        view === TtypeOfView.LIST ? ' list' : '',
+        view === ETypeOfView.LIST ? ' list' : '',
       )}
     >
       <div className='thumbnail'>

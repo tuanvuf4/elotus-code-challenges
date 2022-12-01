@@ -6,7 +6,7 @@ import {
   getTypeView,
   updateTypeOfView,
 } from 'src/app/store/movies'
-import { TtypeOfView } from 'src/app/common/models/movie.model'
+import { ETypeOfView } from 'src/app/common/models/movie.model'
 
 export default function ViewOptions(props: any) {
   const view = useSelector(getTypeView)
@@ -16,18 +16,18 @@ export default function ViewOptions(props: any) {
   return (
     <div className='view-options'>
       <Button
-        className={view === TtypeOfView.LIST ? 'active' : ''}
+        className={view === ETypeOfView.LIST ? 'active' : ''}
         type='ghost'
         shape='default'
-        onClick={() => dispatch(updateTypeOfView(TtypeOfView.LIST))}
+        onClick={() => dispatch(updateTypeOfView(ETypeOfView.LIST))}
         icon={<UnorderedListOutlined />}
       />
 
       <Button
-        className={view === TtypeOfView.GRID ? 'active' : ''}
+        className={view === ETypeOfView.GRID ? 'active' : ''}
         type='ghost'
         shape='default'
-        onClick={() => dispatch(updateTypeOfView(TtypeOfView.GRID))}
+        onClick={() => dispatch(updateTypeOfView(ETypeOfView.GRID))}
         icon={<TableOutlined />}
       />
     </div>

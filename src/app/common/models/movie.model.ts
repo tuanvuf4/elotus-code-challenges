@@ -26,12 +26,12 @@ export interface IMovieItemAPIResponse {
   vote_count: number
 }
 
-export enum TtypeOfView {
+export enum ETypeOfView {
   LIST,
   GRID,
 }
 
-export enum TtypeOfMovies {
+export enum ETypeOfMovies {
   NOW_PLAYING,
   TOP_RATED,
 }
