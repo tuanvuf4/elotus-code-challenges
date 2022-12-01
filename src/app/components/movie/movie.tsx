@@ -1,3 +1,4 @@
+import { Skeleton } from 'antd'
 import classNames from 'classnames'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -24,6 +25,7 @@ export default function Movie(props: IMovieItemAPIResponse) {
   const { title, poster_path, overview, id } = props
 
   const [imgSrc, setImgSrc] = useState<string>('')
+  const [loading, setLoading] = useState(true);
 
   const history = useHistory()
 
@@ -40,25 +42,29 @@ export default function Movie(props: IMovieItemAPIResponse) {
   useEffect(() => {
     if (poster_path) {
       setImgSrc(imageBaseUrl + posterSize + poster_path)
+      setTimeout(() => {
+        setLoading(false);
+      }, 1500);
     }
   }, [poster_path])
 
   return (
-    <div
-      className={classNames(
-        'movie-item',
-        view === ETypeOfView.LIST ? ' list' : '',
-      )}
-      onClick={() => toPage('/movie/' + id)}
-    >
-      <div className='thumbnail'>
-        <CImage path={imgSrc} />
-        <div className='image-skeleton'></div>
+    <Skeleton loading={loading}>
+      <div
+        className={classNames(
+          'movie-item',
+          view === ETypeOfView.LIST ? ' list' : '',
+        )}
+        onClick={() => toPage('/movie/' + id)}
+      >
+        <div className='thumbnail'>
+          <CImage path={imgSrc} />
+        </div>
+        <div className='content'>
+          <h2>{shortText(title, 10)}</h2>
+          <p>{shortText(overview)}</p>
+        </div>
       </div>
-      <div className='content'>
-        <h2>{shortText(title, 10)}</h2>
-        <p>{shortText(overview)}</p>
-      </div>
-    </div>
+    </Skeleton>
   )
 }
