@@ -1,0 +1,22 @@
+.logo {
+  color: white;
+  align-self: center;
+  height: 100%;
+  font-size: 26px;
+  font-style: italic;
+  line-height: 64px;
+
+  a {
+    color: white;
+
+    &:hover {
+      color: white;
+    }
+  }
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

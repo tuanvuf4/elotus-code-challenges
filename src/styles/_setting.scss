@@ -1,0 +1,66 @@
+@import 'src/styles/variables';
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	word-break: break-word;
+	line-height: 1.5em;
+}
+
+@font-face {
+	font-family: Lora;
+	font-weight: normal;
+  src: url('../assets/fonts/Lora/static/Lora-Regular.ttf');
+}
+
+@font-face {
+	font-family: Calibri;
+	font-weight: bold;
+  src: url('../assets/fonts/Lora/static/Lora-Bold.ttf');
+}
+
+html, body {
+	font-size: 14px;
+	font-family: Lora, sans-serif;
+	color: $text-dark;
+	background: #fff;
+}
+
+h1, h2, h3, h4, h5 {
+	margin: 0;
+}
+
+ul, li {
+	display: block;
+	margin: 0;
+}
+
+a {
+	text-decoration: none;
+	user-select: none;
+
+	&:hover {
+		color: $text-dark;
+	}
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+hr {
+	display: block;
+	margin: 20px 0;
+	border-bottom: 1px solid $border-light;
+	box-sizing: border-box;
+}
+
+button {
+	cursor: pointer;
+	border: none;
+}
+
+img {
+	max-width: 100%;
+}

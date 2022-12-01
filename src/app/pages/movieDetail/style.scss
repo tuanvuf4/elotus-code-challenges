@@ -1,0 +1,20 @@
+.movieDetail {
+  .title {
+    font-size: 42px;
+    margin: 20px 0 40px;
+    text-align: center;
+  }
+
+  .backdrop {
+    margin-bottom: 40px;
+
+    img {
+      text-align: center;
+    }
+  }
+
+  .overview {
+    font-style: italic;
+    margin: 10px 0;
+  }
+}

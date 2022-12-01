@@ -1,0 +1,45 @@
+.movie-item {
+  cursor: pointer;
+  margin: 20px 0;
+
+  img {
+    text-align: center;
+  }
+
+  &.list {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    .thumbnail {
+      margin-right: 16px;
+      flex: 0 1 200px;
+
+      @media screen and (max-width: 575px) {
+        flex: 0 1 120px;
+      }
+
+      img {
+        width: 100%;
+      }
+    }
+
+    .content {
+      flex: 1 0;
+
+      h2 {
+        margin-top: 0;
+      }
+    }
+  }
+
+  .content {
+    padding: 0 10px;
+
+    h2 {
+      font-size: 18px;
+      text-transform: uppercase;
+      margin: 8px 0;
+    }
+  }
+}
