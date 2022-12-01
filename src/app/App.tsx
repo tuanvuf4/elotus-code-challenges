@@ -1,20 +1,16 @@
 import { useEffect } from 'react'
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { Layout } from 'antd'
 import AppHeader from './components/header/header'
-import Movies from './components/movies/movies'
-import TabBar from './components/tabBar/tabBar'
 
 import 'antd/dist/reset.css'
 import '../styles/styles.scss'
-import ViewOptions from './components/viewOptions/viewOptions'
 import { Loading } from './common/components/loading/loading'
 import { useDispatch } from 'react-redux'
 import { getConfig } from './store/asyncActions/movies'
 import ErrorNotification from './components/notifications/ErrorNotification/ErrorNotification'
-import MovieDetail from './pages/movieDetail/movieDetail'
-import Home from './pages/home/home'
 import { routes } from 'src/router'
+import { getErrorAPI } from './common/services/apis/moviesApi'
 
 const { Header, Content } = Layout
 
@@ -23,6 +19,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getConfig())
+    getErrorAPI().then((resp) => resp)
   }, [])
 
   function RouteWithSubRoutes(route: any) {
