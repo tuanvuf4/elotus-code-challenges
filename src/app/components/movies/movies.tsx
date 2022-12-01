@@ -46,12 +46,12 @@ export default function Movies(props: any) {
   }
 
   return (
-    <div className='movies' id='list'>
+    <div className='movies'>
       <InfiniteScroll
         dataLength={movies.length}
         next={getMoreMovies}
         // pullDownToRefresh
-        // pullDownToRefreshThreshold={1}
+        pullDownToRefreshThreshold={0}
         // refreshFunction={getMoreMovies}
         hasMore={true}
         loader={<InfiniteScrollComponent />}

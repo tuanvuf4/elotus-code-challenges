@@ -9,9 +9,15 @@ import '../styles/styles.scss'
 import InfiniteScroll from './components/infiniteScroll/infiniteScroll'
 import ViewOptions from './components/viewOptions/viewOptions'
 import { Loading } from './common/components/loading/loading'
-import { getAppConfig, updateAppConfig } from './store/config'
-import { useDispatch } from 'react-redux'
+import {
+  getAppConfig,
+  getErrorMessage,
+  getIsShowError,
+  updateAppConfig,
+} from './store/config'
+import { useDispatch, useSelector } from 'react-redux'
 import { getConfig } from './store/asyncActions/movies'
+import ErrorModal from './components/modal/errorModal/errorModal'
 
 const { Header, Content } = Layout
 
@@ -37,7 +43,7 @@ function App() {
 
             <Movies></Movies>
 
-            {/* <InfiniteScroll></InfiniteScroll> */}
+            <ErrorModal></ErrorModal>
           </div>
         </Content>
 

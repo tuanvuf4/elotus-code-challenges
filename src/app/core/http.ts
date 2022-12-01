@@ -25,5 +25,5 @@ export const useAxiosLoader = () => {
     };
   }, [interceptors]);
   
-  return [counter > 0];
+  return [counter > 0]
 };

@@ -10,3 +10,8 @@ export interface IAppConfigResponse {
   }
   change_keys: string[]
 }
+
+export interface IError {
+  isShowError: boolean
+  errorMessage: string
+}

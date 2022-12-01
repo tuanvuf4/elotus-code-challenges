@@ -5,16 +5,20 @@ import {
   PayloadAction,
 } from '@reduxjs/toolkit'
 import { IAppState } from '.'
-import { IAppConfigResponse } from '../common/models/config'
+import { IAppConfigResponse, IError } from '../common/models/config'
 import { getConfig } from './asyncActions/movies'
 
 export interface IConfigState {
   requestAPIInProgress: boolean
+  isShowError: boolean
+  errorMessage: string
   appConfig: IAppConfigResponse
 }
 
 const initialState: IConfigState = {
   requestAPIInProgress: false,
+  isShowError: false,
+  errorMessage: '',
   appConfig: {
     images: {
       backdrop_sizes: [''],
@@ -44,6 +48,14 @@ const configReducer = createSlice({
       action: PayloadAction<IAppConfigResponse>,
     ) {
       state.appConfig = action.payload
+    },
+    showError(state: IConfigState, action: PayloadAction<IError>) {
+      state.isShowError = action.payload.isShowError
+      state.errorMessage = action.payload.errorMessage
+    },
+    hideError(state: IConfigState) {
+      state.isShowError = false
+      state.errorMessage = ''
     },
   },
   extraReducers: (builder: any) => {
@@ -83,7 +95,21 @@ export const getRequestAPIInProgress = createSelector(
   (state: IConfigState) => state.requestAPIInProgress,
 )
 
-export const { updateRequestAPIInProgress, updateAppConfig } =
-  configReducer.actions
+export const getIsShowError = createSelector(
+  rootState,
+  (state: IConfigState) => state.isShowError,
+)
+
+export const getErrorMessage = createSelector(
+  rootState,
+  (state: IConfigState) => state.errorMessage,
+)
+
+export const {
+  updateRequestAPIInProgress,
+  updateAppConfig,
+  showError,
+  hideError,
+} = configReducer.actions
 
 export default configReducer

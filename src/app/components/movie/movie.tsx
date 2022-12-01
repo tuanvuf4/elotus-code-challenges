@@ -1,7 +1,10 @@
 import classNames from 'classnames'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { IMovieItemAPIResponse, ETypeOfView } from 'src/app/common/models/movie.model'
+import {
+  IMovieItemAPIResponse,
+  ETypeOfView,
+} from 'src/app/common/models/movie.model'
 import {
   getBackDropImageSize,
   getPosterImageSize,
@@ -16,6 +19,9 @@ import './style.scss'
 
 export default function Movie(props: IMovieItemAPIResponse) {
   const { title, backdrop_path, overview } = props
+
+  const [fadeIn, setFadeIn] = useState<boolean>(false)
+  const [imgSrc, setImgSrc] = useState<string>('')
 
   const backDropImageSizes = useSelector(getBackDropImageSizes)
   const posterImageSizes = useSelector(getPosterImageSizes)
@@ -35,6 +41,13 @@ export default function Movie(props: IMovieItemAPIResponse) {
     return text
   }
 
+  useEffect(() => {
+    if (backdrop_path) {
+      setFadeIn(true)
+      setImgSrc(imageBaseUrl + posterSize + backdrop_path)
+    }
+  }, [backdrop_path])
+
   return (
     <div
       className={classNames(
@@ -44,8 +57,9 @@ export default function Movie(props: IMovieItemAPIResponse) {
     >
       <div className='thumbnail'>
         <img
+          className={classNames(fadeIn ? ' fadeIn' : '')}
           loading='lazy'
-          src={imageBaseUrl + posterSize + backdrop_path}
+          src={imgSrc}
           alt=''
         />
         <div className='image-skeleton'></div>

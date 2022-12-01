@@ -2,6 +2,15 @@
   cursor: pointer;
   margin: 20px 0;
 
+  img {
+    opacity: 0;
+    transition: all ease 3s;
+
+    &.fadeIn {
+      opacity: 1;
+    }
+  }
+
   &.list {
     display: flex;
     align-items: flex-start;

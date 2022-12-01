@@ -3,6 +3,7 @@ import { PersistConfig, persistReducer } from 'redux-persist';
 import autoMergeLevel2 from 'redux-persist/es/stateReconciler/autoMergeLevel2';
 import storageSession from 'redux-persist/lib/storage/session'
 import thunk from 'redux-thunk';
+import { injectStore } from '../core/apiUtils';
 import configReducer, { IConfigState } from './config';
 import moviesReducer, { IMoviesState } from './movies';
 export interface IAppState {
@@ -27,3 +28,5 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware: any) =>
     getDefaultMiddleware({ serializableCheck: false }).concat(thunk),
 });
+
+injectStore(store);

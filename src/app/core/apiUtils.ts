@@ -1,12 +1,27 @@
-import axios, { AxiosRequestConfig, AxiosRequestHeaders } from 'axios'
-import { store } from '../store'
-import { IConfigState } from '../store/config'
+import axios, { AxiosRequestConfig } from 'axios'
 import { appConfig } from '../config/appConfig'
+
+import { showError } from '../store/config'
+
+let localStore: any;
+
+export const injectStore = (_store: any) => {
+  localStore = _store
+}
 
 const getHeaders = {
   headers: {
     'Content-Type': 'application/json',
   },
+}
+
+const errorHandle = (errorMessage: string) => {
+  localStore.dispatch(
+    showError({
+      isShowError: true,
+      errorMessage,
+    }),
+  )
 }
 
 const getHttpConfig = (headers = {}, config: AxiosRequestConfig = {}) => {
@@ -24,7 +39,11 @@ export const getApi = (url: string, params = {}): Promise<any> =>
       })
       .then(
         (data) => resolve(data),
-        (err) => reject(err),
+        (err) => {
+          console.log('err ', err)
+          errorHandle(err.message)
+          reject(err)
+        },
       )
   })
 
@@ -36,7 +55,11 @@ export const postApi = (
   new Promise((resolve, reject) => {
     axiosInstance.post(url, data, { ...httpConfig }).then(
       (data) => resolve(data),
-      (err) => reject(err),
+      (err) => {
+        console.log('err ', err)
+        // errorHandle(err.message)
+        reject(err)
+      },
     )
   })
 
@@ -48,7 +71,11 @@ export const putApi = (
   new Promise((resolve, reject) => {
     axiosInstance.put(url, data, { ...httpConfig }).then(
       (data) => resolve(data),
-      (err) => reject(err),
+      (err) => {
+        console.log('err ', err)
+        // errorHandle(err.message)
+        reject(err)
+      },
     )
   })
 
@@ -59,6 +86,10 @@ export const deleteApi = (
   new Promise((resolve, reject) => {
     axiosInstance.delete(url, { ...httpConfig }).then(
       (data) => resolve(data),
-      (err) => reject(err),
+      (err) => {
+        console.log('err ', err)
+        // errorHandle(err.message)
+        reject(err)
+      },
     )
   })
