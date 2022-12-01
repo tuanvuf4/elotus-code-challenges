@@ -1,20 +1,39 @@
-export const getPosterImageSize = (sizes: string[]) => {
+import { ETypeOfView } from '../models/movie.model'
+
+export const getPosterImageSize = (sizes: string[], type: ETypeOfView) => {
+  console.log('===================== ')
+  console.log('sizes ', sizes)
+  console.log('type ', type === 1 ? "GRID" : 'LIST')
   const wWidth = window.innerWidth
-  switch (true) {
-    case wWidth > 989:
-      return sizes[3]
 
-    case wWidth > 639 && wWidth < 990:
-      return sizes[4]
+  if (type === ETypeOfView.GRID) {
+    switch (true) {
+      case wWidth > 991:
+        return sizes[3]
 
-    case wWidth > 479 && wWidth < 640:
-      return sizes[5]
+      case wWidth >= 768 && wWidth <= 991:
+        return sizes[4]
 
-    case wWidth > 0 && wWidth < 480:
-      return sizes[4]
+      case wWidth >= 576 && wWidth <= 767:
+        return sizes[5]
 
-    default:
-      return sizes[6]
+      case wWidth > 0 && wWidth <= 575:
+        return sizes[6]
+
+      default:
+        return sizes[4]
+    }
+  } else {
+    switch (true) {
+        case wWidth >= 576:
+        return sizes[4]
+
+        case wWidth > 0 && wWidth <= 575:
+        return sizes[3]
+
+      default:
+        return sizes[3]
+    }
   }
 }
 

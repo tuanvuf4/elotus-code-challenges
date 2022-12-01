@@ -3,15 +3,28 @@ import { TableOutlined, UnorderedListOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import {
+  getTypeOfMovie,
   getTypeView,
   updateTypeOfView,
 } from 'src/app/store/movies'
 import { ETypeOfView } from 'src/app/common/models/movie.model'
+import { getMoviesAPI } from 'src/app/store/asyncActions/movies'
 
 export default function ViewOptions(props: any) {
   const view = useSelector(getTypeView)
+  const typeOfMovie = useSelector(getTypeOfMovie)
 
   const dispatch = useDispatch()
+
+  const getMovies = (type: ETypeOfView) => {
+    dispatch(updateTypeOfView(type))
+    dispatch(
+      getMoviesAPI({
+        type: typeOfMovie,
+        page: 1,
+      }),
+    )
+  }
 
   return (
     <div className='view-options'>
@@ -19,7 +32,7 @@ export default function ViewOptions(props: any) {
         className={view === ETypeOfView.LIST ? 'active' : ''}
         type='ghost'
         shape='default'
-        onClick={() => dispatch(updateTypeOfView(ETypeOfView.LIST))}
+        onClick={() => getMovies(ETypeOfView.LIST)}
         icon={<UnorderedListOutlined />}
       />
 
@@ -27,7 +40,7 @@ export default function ViewOptions(props: any) {
         className={view === ETypeOfView.GRID ? 'active' : ''}
         type='ghost'
         shape='default'
-        onClick={() => dispatch(updateTypeOfView(ETypeOfView.GRID))}
+        onClick={() => getMovies(ETypeOfView.GRID)}
         icon={<TableOutlined />}
       />
     </div>

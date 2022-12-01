@@ -33,7 +33,7 @@ export default function Movie(props: IMovieItemAPIResponse) {
   const posterImageSizes = useSelector(getPosterImageSizes)
   const view = useSelector(getTypeView)
 
-  const posterSize = getPosterImageSize(posterImageSizes)
+  const posterSize = getPosterImageSize(posterImageSizes, view)
 
   const toPage = (url: string) => {
     history.push(url)
@@ -46,14 +46,21 @@ export default function Movie(props: IMovieItemAPIResponse) {
         setLoading(false);
       }, 1500);
     }
-  }, [poster_path])
+  }, [poster_path, posterSize])
+
+  useEffect(() => {
+    window.addEventListener('resize', () => {
+      const posterSize = getPosterImageSize(posterImageSizes, view)
+      setImgSrc(imageBaseUrl + posterSize + poster_path)
+    })
+  })
 
   return (
     <Skeleton loading={loading}>
       <div
         className={classNames(
           'movie-item',
-          view === ETypeOfView.LIST ? ' list' : '',
+          view === ETypeOfView.LIST ? 'list' : '',
         )}
         onClick={() => toPage('/movie/' + id)}
       >
