@@ -1,0 +1,31 @@
+.movie-item {
+  cursor: pointer;
+  margin: 20px 0;
+
+  &.list {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    .thumbnail {
+      margin-right: 16px;
+    }
+
+    .content {
+      h2 {
+        margin-top: 0;
+      }
+    }
+
+  }
+
+  .content {
+    padding: 0 10px;
+
+    h2 {
+      font-size: 18px;
+      text-transform: uppercase;
+      margin: 8px 0;
+    }
+  }
+}

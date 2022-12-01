@@ -1,0 +1,11 @@
+@import '../../../styles/variables';
+
+.movies {
+  margin: 30px 0;
+}
+
+.movie-item-wrapper {
+  &:hover {
+    box-shadow: 0 0 8px 4px rgba($nd, 0.35);
+  }
+}

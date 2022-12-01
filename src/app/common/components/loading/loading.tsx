@@ -1,5 +1,5 @@
 import './loading.scss';
-import { ReactComponent as IconLoading } from 'src/assets/images/icon/sprinner.svg';
+import { ReactComponent as IconLoading } from 'src/assets/images/sprinner.svg';
 import { useAxiosLoader } from 'src/app/core/http';
 
 export type LoadingProps = {};

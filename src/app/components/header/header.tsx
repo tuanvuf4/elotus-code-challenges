@@ -1,9 +1,14 @@
 import React, { useState } from 'react'
-
-import logo from 'src/assets/images/logo.png'
+import SearchBar from '../searchBar/searchBar'
+import './style.scss'
 
 export default function Header(props: any) {
   return (
-    <div>12312</div>
+    <div className='app-container'>
+      <div className='app-header'>
+        <div className='logo'>eLotus</div>
+        <SearchBar></SearchBar>
+      </div>
+    </div>
   )
 }

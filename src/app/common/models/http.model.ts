@@ -1,10 +1,8 @@
-import { IPagingResponse } from "./paging.model"
+import { IPagingResponse } from './paging.model'
 
 export interface IHttpResponseArrayPaging<T> {
-  status: {
-    timestamp: typeof Date,
-    code: number
-  },
+  status: number
+  statusText: string
   data: {
     contents: T[]
     paging: IPagingResponse
@@ -12,19 +10,21 @@ export interface IHttpResponseArrayPaging<T> {
 }
 
 export interface IHttpResponseArray<T> {
-  status: {
-    timestamp: typeof Date,
-    code: number
-  },
+  status: number
+  statusText: string
   data: {
     contents: T[]
   }
 }
 
 export interface IHttpResponse<T> {
-  status: {
-    timestamp: typeof Date,
-    code: number
-  },
+  status: number
+  statusText: string
   data: T
 }
+
+export const response = (data: any): IHttpResponse<any> => ({
+  status: data['status'],
+  statusText: data['statusText'],
+  data: data['data'],
+})

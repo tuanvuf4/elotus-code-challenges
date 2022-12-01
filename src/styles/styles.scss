@@ -1,0 +1,15 @@
+@import './setting';
+@import './custom';
+
+.app-container {
+  margin: auto;
+  padding: 0 18px;
+  width: 1200px;
+  max-width: 100%;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
