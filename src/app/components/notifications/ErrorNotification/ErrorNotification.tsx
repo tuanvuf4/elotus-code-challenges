@@ -8,7 +8,7 @@ import {
 } from 'src/app/store/config'
 import './style.scss'
 
-export default function ErrorModal() {
+export default function ErrorNotification() {
 
   const show = useSelector(getIsShowError)
   const errMsg = useSelector(getErrorMessage)

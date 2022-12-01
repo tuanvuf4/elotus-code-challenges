@@ -18,6 +18,7 @@ import Movie from '../movie/movie'
 import './style.scss'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import InfiniteScrollComponent from '../infiniteScroll/infiniteScroll'
+import { useHistory } from 'react-router-dom'
 
 export default function Movies(props: any) {
   const dispatch = useDispatch()
@@ -26,6 +27,8 @@ export default function Movies(props: any) {
   const typeOfMovie = useSelector(getTypeOfMovie)
   const movies = useSelector(getMovies)
   const currentPage = useSelector(getCurrentPage)
+
+  
 
   useEffect(() => {
     dispatch(

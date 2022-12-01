@@ -1,23 +1,20 @@
-import React, { memo, useEffect } from 'react'
-import { Col, Layout, Row } from 'antd'
+import { useEffect } from 'react'
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import { Layout } from 'antd'
 import AppHeader from './components/header/header'
 import Movies from './components/movies/movies'
 import TabBar from './components/tabBar/tabBar'
 
 import 'antd/dist/reset.css'
 import '../styles/styles.scss'
-import InfiniteScroll from './components/infiniteScroll/infiniteScroll'
 import ViewOptions from './components/viewOptions/viewOptions'
 import { Loading } from './common/components/loading/loading'
-import {
-  getAppConfig,
-  getErrorMessage,
-  getIsShowError,
-  updateAppConfig,
-} from './store/config'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { getConfig } from './store/asyncActions/movies'
-import ErrorModal from './components/modal/errorModal/errorModal'
+import ErrorNotification from './components/notifications/ErrorNotification/ErrorNotification'
+import MovieDetail from './pages/movieDetail/movieDetail'
+import Home from './pages/home/home'
+import { routes } from 'src/router'
 
 const { Header, Content } = Layout
 
@@ -28,28 +25,38 @@ function App() {
     dispatch(getConfig())
   }, [])
 
+  function RouteWithSubRoutes(route: any) {
+    return (
+      <Route
+        path={route.path}
+        render={(props) => <route.component {...props} routes={route.routes} />}
+      />
+    )
+  }
+
   return (
-    <div className='wrapper'>
-      <Layout>
-        <Header>
-          <AppHeader></AppHeader>
-        </Header>
-        <Content>
-          <div className='app-container'>
-            <div className='toolbar'>
-              <TabBar></TabBar>
-              <ViewOptions></ViewOptions>
+    <Router>
+      <div className='wrapper'>
+        <Layout>
+          <Header>
+            <AppHeader></AppHeader>
+          </Header>
+          <Content>
+            <div className='app-container'>
+              <Switch>
+                {routes.map((route, i) => (
+                  <RouteWithSubRoutes key={i} {...route} />
+                ))}
+              </Switch>
+
+              <ErrorNotification></ErrorNotification>
             </div>
+          </Content>
 
-            <Movies></Movies>
-
-            <ErrorModal></ErrorModal>
-          </div>
-        </Content>
-
-        <Loading></Loading>
-      </Layout>
-    </div>
+          <Loading></Loading>
+        </Layout>
+      </div>
+    </Router>
   )
 }
 

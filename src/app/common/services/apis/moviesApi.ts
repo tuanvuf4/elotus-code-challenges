@@ -16,3 +16,8 @@ export const getMoviesTopRated = (
   APIUtil.getApi(`${appConfig.baseURL}/movie/top_rated/`, { page }).then(
     response,
   )
+
+export const getMovieDetail = (
+  id: string,
+): Promise<IHttpResponse<IMovieAPIResponse>> =>
+  APIUtil.getApi(`${appConfig.baseURL}/movie/${id}`).then(response)

@@ -15,7 +15,7 @@ export default function SearchBar(props: any) {
           value={''}
           placeholder='Search the movies...'
           onChange={(e) => setSearchText(e.target.value)}
-          style={{ width: 180 }}
+          style={{ width: 160 }}
         />
       </Form.Item>
       <Form.Item>
