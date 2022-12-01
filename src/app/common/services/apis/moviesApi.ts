@@ -21,3 +21,10 @@ export const getMovieDetail = (
   id: string,
 ): Promise<IHttpResponse<IMovieAPIResponse>> =>
   APIUtil.getApi(`${appConfig.baseURL}/movie/${id}`).then(response)
+
+export const getErrorAPI = (
+  page: number = 1,
+): Promise<IHttpResponse<IMovieAPIResponse>> =>
+  APIUtil.getApi(`${appConfig.baseURL}/movieError`, { page }).then(
+    response,
+  )
