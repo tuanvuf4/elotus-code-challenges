@@ -30,6 +30,13 @@ export default function MovieDetail(props: any) {
     }
   }, [movie])
 
+  useEffect(() => {
+    window.addEventListener('resize', () => {
+      const backdropImage = getBackDropImageSize(backDropImageSizes)
+      setImgSrc(imageBaseUrl + backdropImage + movie.backdrop_path)
+    })
+  })
+
   return (
     <div className='movieDetail'>
       <h2 className='title'>{movie.title}</h2>
